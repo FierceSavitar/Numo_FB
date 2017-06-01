@@ -1,25 +1,10 @@
-var express = require("express");
-var request = require("request");
-var bodyParser = require("body-parser");
-
-var app = express();
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.json());
-app.listen((process.env.PORT || 5000));
-
-// Server index page
-app.get("/", function (req, res) {
-  res.send("Deployed!");
-});
-
-// Facebook Webhook
-// Used for verification
-app.get("/webhook", function (req, res) {
-  if (req.query["hub.verify_token"] === "EAAbjECb5EcEBAHJuFK1YGIKVASAjZBZA2Nq6QyQCK17Ea80ccjPS4sZCya0txOVa7lvCZCUZBQqVHtPnCHQMkYUmUnZA1jiPxtSjFOQZB4hGyY5566DIUXHt3qEZBVPtZCOHaImwnFGGgg4EZAevfdC17ZCtrlMkiDlm7LeQTZCvGstkQQZDZD") {
-    console.log("Verified webhook");
-    res.status(200).send(req.query["hub.challenge"]);
+app.get('/webhook', function(req, res) {
+  if (req.query['hub.mode'] === 'subscribe' &&
+      req.query['hub.verify_token'] === <VERIFY_TOKEN>) {
+    console.log("Validating webhook");
+    res.status(200).send(req.query['hub.challenge']);
   } else {
-    console.error("Verification failed. The tokens do not match.");
-    res.sendStatus(403);
-  }
-})
+    console.error("Failed validation. Make sure the validation tokens match.");
+    res.sendStatus(403);          
+  }  
+});
