@@ -1,0 +1,12 @@
+{
+  "name": "Numo",
+  "version": "1.0.0",
+  "description": "Chat Bot",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" &amp;&amp; exit 1",
+    "start": "node app.js"
+  },
+  "author": "Austin Amakye Ansah",
+  "license": "ISC"
+}
